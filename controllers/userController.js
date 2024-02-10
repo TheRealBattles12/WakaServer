@@ -11,19 +11,19 @@ const authUser = asyncHandler(async(req, res) => {
     }
 })
 const registerUser = asyncHandler(async(req, res) => {
-    // const {email, password, name} = req.body
-    // const userExists = await User.findOne({email})
-    // if(userExists){
-    //     res.status(404)
-    //     throw new Error("⚠️Oops, this email address already exists!")
-    // } 
-    // const NewUser = new User({
-    //     email,
-    //     password,
-    //     name
-    // })
-    // const savedUser = await NewUser.save()
-    // res.status(201).json(savedUser)
-    console.log(req.body)
+    const {email, password, name} = req.body
+    const userExists = await User.findOne({email})
+    if(userExists){
+        res.status(404)
+        throw new Error("⚠️Oops, this email address already exists!")
+    } 
+    const NewUser = new User({
+        email,
+        password,
+        name
+    })
+    const savedUser = await NewUser.save()
+    res.status(201).json(savedUser)
+   
 })
 export {authUser, registerUser}

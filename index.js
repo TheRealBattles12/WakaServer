@@ -42,6 +42,7 @@ app.get("/NewOrder", async(req, res) => {
     const savedOrder = await NewOrder.save()
     res.status(201).json(savedOrder)
 })
+app.use(express.json());
 app.use("/api/user", userRoutes)
 app.listen("3000", () => {
     console.log("It works fine!")
