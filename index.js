@@ -14,38 +14,6 @@ app.get("/", (req, res) => {
 })
 app.use(cors({origin: ["http://localhost:5173"]}))
 
-app.get("/NewOrder", async(req, res) => {
-    const NewOrder = new Orders({
-       products: [
-           {
-            productName: "Jollof Rice",
-            quantity: 5,
-            price: 87.50  
-           },
-           {
-            productName: "Puff Puff",
-            quantity: 7,
-            price: 25.50  
-           },
-           {
-            productName: "Chicken Suya",
-            quantity: 4,
-            price: 27.50  
-           },
-           {
-            productName: "Yam and Egg",
-            quantity: 6,
-            price: 65.50  
-           },
-
-       ],
-       billingAddress: "123, You'll Never Find Me", 
-       PaymentMethod: "Credit Card",
-       OrderState: "Completed"
-    })
-    const savedOrder = await NewOrder.save()
-    res.status(201).json(savedOrder)
-})
 app.use(express.json());
 app.use("/api/user", userRoutes)
 app.use("/api/", orderRoutes)

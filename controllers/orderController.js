@@ -13,14 +13,13 @@ const deleteFromCart = asyncHandler(async(req, res) => {
     }
 })
 const addToCart = asyncHandler(async(req, res) => {
-    const {email, password} = req.body
-    const user = await User.findOne({email})
-    if(user && password == user.password){
-        res.send("You are valid!✅")
-    }else{
-        res.status(401)
-        throw new Error ("Oops, this email or password are invalid! ❌")
-    }
+    const {userId, productName, price, quantity} = req.body
+    const newItem = new Cart({
+        userId, productName, price, quantity
+    })
+    const addedCart = await newItem.save()
+    res.status(201).json(addedCart)
+    
 })
 const allCartItems = asyncHandler(async(req, res) => {
     const {email, password} = req.body
