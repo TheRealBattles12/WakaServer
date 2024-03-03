@@ -16,7 +16,7 @@ app.use(cors({origin: ["http://localhost:5173"]}))
 
 app.use(express.json());
 app.use("/api/user", userRoutes)
-app.use("/api/orders", orderRoutes)
+app.use("/api/order", orderRoutes)
 app.listen("3000", () => {
     console.log("It works fine!")
 })
