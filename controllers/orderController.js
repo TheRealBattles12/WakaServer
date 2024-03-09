@@ -31,10 +31,10 @@ const allCartItems = asyncHandler(async(req, res) => {
 })
 
 const createOrder = asyncHandler(async(req, res) => {
-    const {userId, products, biilingAdress, PaymentMethod, OrderState} = req.body
+    const {userId, products, billingAddress, PaymentMethod, OrderState} = req.body
     try {
         const newOrder = new Orders({
-            userId, products, biilingAdress, PaymentMethod, OrderState
+            userId, products, billingAddress, PaymentMethod, OrderState
         })
         const addedOrder = await newOrder.save()
         res.status(201).json(addedOrder)    
@@ -47,14 +47,17 @@ const createOrder = asyncHandler(async(req, res) => {
 })
 
 const updateOrder = asyncHandler(async(req, res) => {
-    const {email, password} = req.body
-    const user = await User.findOne({email})
-    if(user && password == user.password){
-        res.send("You are valid!✅")
-    }else{
+    const {_id} = req.body
+    const order = await Orders.findOne({_id})
+    try {
+        order.OrderState = "completed"
+        const orderApproved = await order.save()
+        res.status(201).json(orderApproved)
+    } catch (error) {
         res.status(401)
-        throw new Error ("Oops, this email or password are invalid! ❌")
+        throw new Error ("Ooops, could not update order!")
     }
+    
 })
 
 export { addToCart, deleteFromCart, allCartItems, createOrder, updateOrder}
