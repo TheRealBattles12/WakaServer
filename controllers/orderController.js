@@ -23,6 +23,8 @@ const addToCart = asyncHandler(async(req, res) => {
 })
 const allCartItems = asyncHandler(async(req, res) => {
    const {userId} = req.body
+   const allCart = await Cart.find({userId})
+   res.status(201).json(allCart)
 })
 
 const createOrder = asyncHandler(async(req, res) => {
