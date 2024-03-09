@@ -8,7 +8,7 @@ const deleteFromCart = asyncHandler(async(req, res) => {
     if (deleted) {
         
         console.log(`${result.deletedCount} document deleted.`);
-        res.status(201).json(addedCart)
+        res.status(201).json(deleted)
     }
     else{
         res.status(401)
